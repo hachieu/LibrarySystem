@@ -1,0 +1,95 @@
+<div class="mt-2">
+    <h2 id="page-heading">
+        <span jhiTranslate="libaraySystemApp.bookTitle.home.title">Book Titles</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-book-title" [routerLink]="['/book-title/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="libaraySystemApp.bookTitle.home.createLabel">
+            Create a new Book Title
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="bookTitles?.length === 0">
+        <span jhiTranslate="libaraySystemApp.bookTitle.home.notFound">No bookTitles found</span>
+    </div>
+
+    <div class="table-responsive lb-table lb-scroll" id="entities" *ngIf="bookTitles && bookTitles.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="bookTitleName"><span jhiTranslate="libaraySystemApp.bookTitle.bookTitleName">Book Title Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="author"><span jhiTranslate="libaraySystemApp.bookTitle.author">Author</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="publicationDate"><span jhiTranslate="libaraySystemApp.bookTitle.publicationDate">Publication Date</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="page"><span jhiTranslate="libaraySystemApp.bookTitle.page">Page</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="priceOfBook"><span jhiTranslate="libaraySystemApp.bookTitle.priceOfBook">Price Of Book</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="prireOfBorrow"><span jhiTranslate="libaraySystemApp.bookTitle.prireOfBorrow">Prire Of Borrow</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="image"><span jhiTranslate="libaraySystemApp.bookTitle.image">Image</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dateCreate"><span jhiTranslate="libaraySystemApp.bookTitle.dateCreate">Date Create</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dateUpdate"><span jhiTranslate="libaraySystemApp.bookTitle.dateUpdate">Date Update</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="userCreate"><span jhiTranslate="libaraySystemApp.bookTitle.userCreate">User Create</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="bookCategory.id"><span jhiTranslate="libaraySystemApp.bookTitle.bookCategory">Book Category</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bookTitle of bookTitles ;trackBy: trackId">
+                    <td><a [routerLink]="['/book-title', bookTitle.id, 'view']">{{ bookTitle.id }}</a></td>
+                    <td>{{ bookTitle.bookTitleName }}</td>
+                    <td>{{ bookTitle.author }}</td>
+                    <td>{{ bookTitle.publicationDate | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ bookTitle.page }}</td>
+                    <td>{{ bookTitle.priceOfBook }}</td>
+                    <td>{{ bookTitle.prireOfBorrow }}</td>
+                    <td><img [src]="urlImage + bookTitle.image" class="l-img" ></td>
+                    <td>{{ bookTitle.dateCreate | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ bookTitle.dateUpdate | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ bookTitle.userCreate }}</td>
+                    <td>
+                        <div *ngIf="bookTitle.bookCategory">
+                            <a [routerLink]="['/book-category', bookTitle.bookCategory?.id, 'view']" >{{ bookTitle.bookCategory?.bookCategoryName }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/book-title', bookTitle.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/book-title', bookTitle.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(bookTitle)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="bookTitles && bookTitles.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

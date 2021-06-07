@@ -1,0 +1,26 @@
+<div>
+    <router-outlet name="navbar"></router-outlet>
+</div>
+
+<div [ngSwitch]="isAuthenticated()">
+    <div class="home-wl" *ngSwitchCase="false">
+        <h1 class="display-4" jhiTranslate="home.title">Welcome, Java Hipster!</h1>
+        <router-outlet></router-outlet>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row" *ngSwitchCase="true">
+            <div class="col-sm-2" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <jhi-sidebar></jhi-sidebar>
+            </div>
+            <div class="col-sm-10">
+                <ng-loading-spinner [top]="100" color="green"></ng-loading-spinner>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *jhiHasAnyAuthority="'ROLE_USER'">
+    <jhi-footer></jhi-footer>
+</div>

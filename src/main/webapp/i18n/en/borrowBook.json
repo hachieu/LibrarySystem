@@ -1,0 +1,30 @@
+{
+  "libaraySystemApp": {
+    "borrowBook": {
+      "home": {
+        "title": "Borrow Books",
+        "createLabel": "Create a new Borrow Book",
+        "createOrEditLabel": "Create or edit a Borrow Book",
+        "notFound": "No Borrow Books found"
+      },
+      "created": "A new Borrow Book is created with identifier {{ param }}",
+      "updated": "A Borrow Book is updated with identifier {{ param }}",
+      "deleted": "A Borrow Book is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Borrow Book {{ id }}?"
+      },
+      "detail": {
+        "title": "Borrow Book"
+      },
+      "dateCreate": "Date Create",
+      "dateUpdate": "Date Update",
+      "userCreate": "User Create",
+      "status": "Status",
+      "borrowBook": "Borrow Book",
+      "card": "Card",
+      "returned": "Returned",
+      "borrowing": "Borrowing",
+      "chooseBook" : "Choose Book"
+    }
+  }
+}

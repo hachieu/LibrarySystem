@@ -1,0 +1,43 @@
+{
+  "name": "BookCategory",
+  "fields": [
+    {
+      "fieldName": "bookCategoryName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "dateCreate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateUpdate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "userCreate",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "bookTitle",
+      "otherEntityRelationshipName": "bookCategory",
+      "relationshipName": "bookCategory"
+    }
+  ],
+  "changelogDate": "20210601153951",
+  "entityTableName": "book_category",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

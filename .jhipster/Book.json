@@ -1,0 +1,65 @@
+{
+  "name": "Book",
+  "fields": [
+    {
+      "fieldName": "bookBarCode",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Integer",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "dateCreate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateUpdate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "userCreate",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "bookTitle",
+      "otherEntityRelationshipName": "bookTitle",
+      "relationshipName": "bookTitle",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "bookCase",
+      "otherEntityRelationshipName": "bookCase",
+      "relationshipName": "bookCase",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "borrowBook",
+      "otherEntityRelationshipName": "borrowBook",
+      "relationshipName": "borrowBook",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210601154451",
+  "entityTableName": "book",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

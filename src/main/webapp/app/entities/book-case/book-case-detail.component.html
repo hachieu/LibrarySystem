@@ -1,0 +1,42 @@
+<div class="row justify-content-center mt-2">
+    <div class="col-8">
+        <div *ngIf="bookCase">
+            <h2><span jhiTranslate="libaraySystemApp.bookCase.detail.title">Book Case</span> {{ bookCase.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="libaraySystemApp.bookCase.bookCaseName">Book Case Name</span></dt>
+                <dd>
+                    <span>{{ bookCase.bookCaseName }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookCase.dateCreate">Date Create</span></dt>
+                <dd>
+                    <span>{{ bookCase.dateCreate | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookCase.dateUpdate">Date Update</span></dt>
+                <dd>
+                    <span>{{ bookCase.dateUpdate | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookCase.userCreate">User Create</span></dt>
+                <dd>
+                    <span>{{ bookCase.userCreate }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/book-case', bookCase.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

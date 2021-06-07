@@ -1,0 +1,49 @@
+{
+  "name": "BorrowBook",
+  "fields": [
+    {
+      "fieldName": "dateCreate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateUpdate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "userCreate",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "book",
+      "otherEntityRelationshipName": "borrowBook",
+      "relationshipName": "borrowBook"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "card",
+      "otherEntityRelationshipName": "card",
+      "relationshipName": "card",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210601154351",
+  "entityTableName": "borrow_book",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
+}

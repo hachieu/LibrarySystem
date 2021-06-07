@@ -1,0 +1,77 @@
+<div class="mt-2">
+    <h2 id="page-heading">
+        <span jhiTranslate="libaraySystemApp.bookCase.home.title">Book Cases</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-book-case" [routerLink]="['/book-case/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="libaraySystemApp.bookCase.home.createLabel">
+            Create a new Book Case
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="bookCases?.length === 0">
+        <span jhiTranslate="libaraySystemApp.bookCase.home.notFound">No bookCases found</span>
+    </div>
+
+    <div class="table-responsive lb-table lb-scroll" id="entities" *ngIf="bookCases && bookCases.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="bookCaseName"><span jhiTranslate="libaraySystemApp.bookCase.bookCaseName">Book Case Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dateCreate"><span jhiTranslate="libaraySystemApp.bookCase.dateCreate">Date Create</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dateUpdate"><span jhiTranslate="libaraySystemApp.bookCase.dateUpdate">Date Update</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="userCreate"><span jhiTranslate="libaraySystemApp.bookCase.userCreate">User Create</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bookCase of bookCases ;trackBy: trackId">
+                    <td><a [routerLink]="['/book-case', bookCase.id, 'view']">{{ bookCase.id }}</a></td>
+                    <td>{{ bookCase.bookCaseName }}</td>
+                    <td>{{ bookCase.dateCreate | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ bookCase.dateUpdate | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ bookCase.userCreate }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/book-case', bookCase.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/book-case', bookCase.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(bookCase)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="bookCases && bookCases.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

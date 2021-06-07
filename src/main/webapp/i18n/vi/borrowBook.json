@@ -1,0 +1,30 @@
+{
+  "libaraySystemApp": {
+    "borrowBook": {
+      "home": {
+        "title": "Borrow Books",
+        "createLabel": "Thêm mới một Borrow Book",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Borrow Book",
+        "notFound": "No Borrow Books found"
+      },
+      "created": "Một Borrow Book mới được tạo với định danh {{ param }}",
+      "updated": "Một Borrow Book cập nhật với định danh {{ param }}",
+      "deleted": "Một Borrow Book đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Borrow Book {{ id }}?"
+      },
+      "detail": {
+        "title": "Borrow Book"
+      },
+      "dateCreate": "Date Create",
+      "dateUpdate": "Date Update",
+      "userCreate": "User Create",
+      "status": "Status",
+      "borrowBook": "Borrow Book",
+      "card": "Card",
+      "returned": "Đã trả",
+      "borrowing": "Đang mượn",
+      "chooseBook" : "Chọn sách"
+    }
+  }
+}

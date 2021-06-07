@@ -1,0 +1,26 @@
+{
+  "libaraySystemApp": {
+    "bookCase": {
+      "home": {
+        "title": "Book Cases",
+        "createLabel": "Create a new Book Case",
+        "createOrEditLabel": "Create or edit a Book Case",
+        "notFound": "No Book Cases found"
+      },
+      "created": "A new Book Case is created with identifier {{ param }}",
+      "updated": "A Book Case is updated with identifier {{ param }}",
+      "deleted": "A Book Case is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Book Case {{ id }}?"
+      },
+      "detail": {
+        "title": "Book Case"
+      },
+      "bookCaseName": "Book Case Name",
+      "dateCreate": "Date Create",
+      "dateUpdate": "Date Update",
+      "userCreate": "User Create",
+      "bookCase": "Book Case"
+    }
+  }
+}

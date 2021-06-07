@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="card">
+            <h2><span jhiTranslate="libaraySystemApp.card.detail.title">Card</span> {{ card.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="libaraySystemApp.card.codeCard">Code Card</span></dt>
+                <dd>
+                    <span>{{ card.codeCard }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.card.fullName">Full Name</span></dt>
+                <dd>
+                    <span>{{ card.fullName }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.card.dateOfBirth">Date Of Birth</span></dt>
+                <dd>
+                    <span>{{ card.dateOfBirth | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.card.gender">Gender</span></dt>
+                <dd>
+                    <span *ngIf = "card.gender === '0'" jhiTranslate="libaraySystemApp.card.female">FeMale</span>
+                    <span *ngIf = "card.gender === '1'" jhiTranslate="libaraySystemApp.card.male">Male</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.card.identity">Identity</span></dt>
+                <dd>
+                    <span>{{ card.identity }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.card.phoneNumber">Phone Number</span></dt>
+                <dd>
+                    <span>{{ card.phoneNumber }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.card.address">Address</span></dt>
+                <dd>
+                    <span>{{ card.address }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.card.dateCreate">Date Create</span></dt>
+                <dd>
+                    <span>{{ card.dateCreate | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.card.dateUpdate">Date Update</span></dt>
+                <dd>
+                    <span>{{ card.dateUpdate | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.card.userCreate">User Create</span></dt>
+                <dd>
+                    <span>{{ card.userCreate }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/card', card.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
