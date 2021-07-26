@@ -1,0 +1,127 @@
+<div class="row justify-content-center mt-2">
+    <div class="col-8">
+        <h2 id="jhi-borrow-book-heading" jhiTranslate="libaraySystemApp.borrowBook.home.createOrEditLabel">Create or
+            edit a Borrow Book
+        </h2>
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="libaraySystemApp.borrowBook.chooseBook" for="field_card">List
+                Book</label>
+            <input type="text" class="form-control" name="bookBarCode" [(ngModel)]="bookBarCode" />
+            <button type="button" (click)="chooseBook()" class="btn btn-secondary mt-2"><span
+                    jhiTranslate="libaraySystemApp.borrowBook.chooseBook">Choose Book</span></button>
+        </div>
+        <div class="alert alert-warning" *ngIf="books?.length === 0">
+            <span jhiTranslate="libaraySystemApp.book.home.notFound">No books found</span>
+        </div>
+        <div class="table-responsive lb-table lb-scroll" id="entities" *ngIf="books && books.length > 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col"><span jhiTranslate="global.field.id">ID</span>
+                        </th>
+                        <th scope="col"><span jhiTranslate="libaraySystemApp.book.bookBarCode">Book Bar Code</span></th>
+                        <th scope="col"><span jhiTranslate="libaraySystemApp.book.bookTitle">Book Title</span></th>
+                        <th scope="col"><span jhiTranslate="libaraySystemApp.book.bookCase">Book Case</span></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of books">
+                        <td><a [routerLink]="['/book', book.id, 'view']">{{ book.id }}</a></td>
+                        <td>{{ book.bookBarCode }}</td>
+                        <td>
+                            <div *ngIf="book.bookTitle">
+                                <a [routerLink]="['/book-title', book.bookTitle?.id, 'view']">{{
+                                    book.bookTitle?.bookTitleName }}</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngIf="book.bookCase">
+                                <a [routerLink]="['/book-case', book.bookCase?.id, 'view']">{{
+                                    book.bookCase?.bookCaseName }}</a>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <button type="submit" (click)="delete(book.id)" class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <div>
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="libaraySystemApp.borrowBook.card"
+                        for="field_card">Card</label>
+                    <select class="form-control" id="field_card" name="card" formControlName="card">
+                        <option
+                        	[disabled]="bookBorrowed && bookBorrowed.length > 0"
+                        	[selected] = "cardOption.id === editForm.get('card')!.value?.id"
+                            [ngValue]="cardOption.id === editForm.get('card')!.value?.id ? editForm.get('card')!.value : cardOption"
+                            *ngFor="let cardOption of cards; trackBy: trackById">{{ cardOption.codeCard }}</option>
+                    </select>
+                    <div
+                        *ngIf="editForm.get('card')!.invalid && (editForm.get('card')!.dirty || editForm.get('card')!.touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('card')?.errors?.required"
+                            jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="table-responsive lb-table lb-scroll" id="entities" *ngIf="bookBorrowed && bookBorrowed.length > 0">
+                    <h3 class = "text-danger" jhiTranslate="libaraySystemApp.borrowBook.home.title">Borrow Books</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col"><span jhiTranslate="global.field.id">ID</span>
+                                    <fa-icon icon="sort"></fa-icon>
+                                </th>
+                                <th scope="col"><span jhiTranslate="libaraySystemApp.book.bookBarCode">Book Bar Code</span></th>
+                                <th scope="col"><span jhiTranslate="libaraySystemApp.book.bookTitle">Book Title</span></th>
+                                <th scope="col"><span jhiTranslate="libaraySystemApp.book.bookCase">Book Case</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let book of bookBorrowed">
+                                <td><a [routerLink]="['/book', book.id, 'view']">{{ book.id }}</a></td>
+                                <td>{{ book.bookBarCode }}</td>
+                                <td>
+                                    <div *ngIf="book.bookTitle">
+                                        <a [routerLink]="['/book-title', book.bookTitle?.id, 'view']">{{
+                                            book.bookTitle?.bookTitleName }}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="book.bookCase">
+                                        <a [routerLink]="['/book-case', book.bookCase?.id, 'view']">{{
+                                            book.bookCase?.bookCaseName }}</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                    class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

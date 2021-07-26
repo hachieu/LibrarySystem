@@ -1,0 +1,30 @@
+{
+  "libaraySystemApp": {
+    "borrowBook": {
+      "home": {
+        "title": "Mượn sách",
+        "createLabel": "Tạo thông tin mượn sách",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật thông tin mượn sách",
+        "notFound": "Không tìm thấy thông tin mượn sách"
+      },
+      "created": "Một thông tim mượn sách mới được tạo với định danh {{ param }}",
+      "updated": "Một thông tim mượn sách cập nhật với định danh {{ param }}",
+      "deleted": "Một thông tim mượn sách đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa thông tim mượn sách {{ id }}?"
+      },
+      "detail": {
+        "title": "Mượn sách"
+      },
+      "dateCreate": "Ngày tạo",
+      "dateUpdate": "Ngày trả",
+      "userCreate": "Tài khoản tạo",
+      "status": "Trạng thái",
+      "borrowBook": "Mượn sách",
+      "card": "Thẻ mượn",
+      "returned": "Đã trả",
+      "borrowing": "Đang mượn",
+      "chooseBook" : "Chọn sách"
+    }
+  }
+}

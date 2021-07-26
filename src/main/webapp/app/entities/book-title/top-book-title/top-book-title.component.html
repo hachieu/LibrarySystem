@@ -1,0 +1,51 @@
+<div class="mt-2">
+    <h2 id="page-heading">
+        <span jhiTranslate="libaraySystemApp.bookTitle.home.title">Book Titles</span>
+    </h2>
+
+    <div class="form-inline justify-content-end form-group w-100">
+        <form (ngSubmit)="loadData(1)">
+            <input class="form-control mr-2 w-12" type="text"
+                placeholder="{{'libaraySystemApp.bookTitle.bookTitleName' | translate}}" [(ngModel)]="bookTitleName"
+                name="bookTitleName">
+
+            <button class="btn btn-primary" type="submit">
+                <fa-icon icon="search"></fa-icon>
+                <span jhiTranslate="entity.action.search">Search</span>
+            </button>
+        </form>
+    </div>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="bookTitles?.length === 0">
+        <span jhiTranslate="libaraySystemApp.bookTitle.home.notFound">No bookTitles found</span>
+    </div>
+
+    <div class="row" id="entities" *ngIf="bookTitles && bookTitles.length > 0">
+        <div jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="loadPage.bind(this)">
+        </div>
+        <div class="col-sm-2 ml-4 mb-5 bg-light" *ngFor="let bookTitle of bookTitles ;trackBy: trackId">
+            <img [src]="urlImage + bookTitle.image" class="h-img">
+            <div>
+                {{ bookTitle.bookTitleName }}
+            </div>
+            <div>
+                <span jhiTranslate="libaraySystemApp.bookTitle.author">Author</span>: {{ bookTitle.author }}
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="totalItems < itemsPerPage || bookTitles && bookTitles.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage">
+            </jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+                [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+{
+  "libaraySystemApp": {
+    "bookTitle": {
+      "home": {
+        "title": "Book Titles",
+        "createLabel": "Create a new Book Title",
+        "createOrEditLabel": "Create or edit a Book Title",
+        "notFound": "No Book Titles found"
+      },
+      "created": "A new Book Title is created with identifier {{ param }}",
+      "updated": "A Book Title is updated with identifier {{ param }}",
+      "deleted": "A Book Title is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Book Title {{ id }}?"
+      },
+      "detail": {
+        "title": "Book Title"
+      },
+      "bookTitleName": "Book Title Name",
+      "author": "Author",
+      "publicationDate": "Publication Date",
+      "page": "Page",
+      "priceOfBook": "Price Of Book",
+      "prireOfBorrow": "Prire Of Borrow",
+      "image": "Image",
+      "dateCreate": "Date Create",
+      "dateUpdate": "Date Update",
+      "userCreate": "User Create",
+      "bookTitle": "Book Title",
+      "bookCategory": "Book Category"
+    }
+  }
+}

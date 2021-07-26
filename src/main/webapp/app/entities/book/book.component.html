@@ -1,0 +1,119 @@
+<div class="mt-2">
+    <h2 id="page-heading">
+        <span jhiTranslate="libaraySystemApp.book.home.title">Books</span>
+    </h2>
+
+    <div class="form-inline justify-content-end form-group w-100">
+        <form (ngSubmit)="loadData(1)">
+            <input class="form-control mr-2 w-12" type="text"
+                placeholder="{{'libaraySystemApp.book.bookBarCode' | translate}}" [(ngModel)]="bookBarCode"
+                name="bookBarCode">
+            <input type="checkbox" class="form-check-input" value="1" [(ngModel)]="borrowed" name = "borrowed"><span jhiTranslate="libaraySystemApp.book.borrowed"></span>
+            <input type="checkbox" class="form-check-input" value="0" [(ngModel)]="notBorrow" name = "notBorrow"><span jhiTranslate="libaraySystemApp.book.notborrowedyet"></span>
+
+            <button class="btn btn-primary mr-2" type="submit">
+                <fa-icon icon="search"></fa-icon>
+                <span jhiTranslate="entity.action.search">Search</span>
+            </button>
+        </form>
+        <button class="btn btn-primary mr-2" type="submit" (click) = "export()">
+            <span jhiTranslate="entity.action.download">Download</span>
+        </button>
+        <button class="btn btn-primary mr-2" type="submit" [routerLink]="['/book/import']">
+            <span jhiTranslate="entity.action.import">Import</span>
+        </button>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-book" [routerLink]="['/book/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="libaraySystemApp.book.home.createLabel">
+            Create a new Book
+            </span>
+        </button>
+    </div>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="books?.length === 0">
+        <span jhiTranslate="libaraySystemApp.book.home.notFound">No books found</span>
+    </div>
+
+    <div class="table-responsive lb-table lb-scroll" id="entities" *ngIf="books && books.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="bookBarCode"><span jhiTranslate="libaraySystemApp.book.bookBarCode">Book Bar Code</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="status"><span jhiTranslate="libaraySystemApp.book.status">Status</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dateCreate"><span jhiTranslate="libaraySystemApp.book.dateCreate">Date Create</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dateUpdate"><span jhiTranslate="libaraySystemApp.book.dateUpdate">Date Update</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="userCreate"><span jhiTranslate="libaraySystemApp.book.userCreate">User Create</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="bookTitle.id"><span jhiTranslate="libaraySystemApp.book.bookTitle">Book Title</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="bookCase.id"><span jhiTranslate="libaraySystemApp.book.bookCase">Book Case</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="borrowBook.id"><span jhiTranslate="libaraySystemApp.book.borrowBook">Borrow Book</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let book of books ;trackBy: trackId">
+                    <td><a [routerLink]="['/book', book.id, 'view']">{{ book.id }}</a></td>
+                    <td>{{ book.bookBarCode }}</td>
+                    <td *ngIf="book.status === 1"> <span class="text-danger" jhiTranslate="libaraySystemApp.book.borrowed">Borrowed</span></td>
+                    <td *ngIf="book.status === 0"> <span class="text-success" jhiTranslate="libaraySystemApp.book.notborrowedyet">Not borrowed yet</span></td>
+                    <td>{{ book.dateCreate | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ book.dateUpdate | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ book.userCreate }}</td>
+                    <td>
+                        <div *ngIf="book.bookTitle">
+                            <a [routerLink]="['/book-title', book.bookTitle?.id, 'view']" >{{ book.bookTitle?.bookTitleName }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="book.bookCase">
+                            <a [routerLink]="['/book-case', book.bookCase?.id, 'view']" >{{ book.bookCase?.bookCaseName }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="book.borrowBook">
+                            <a [routerLink]="['/borrow-book', book.borrowBook?.id, 'view']" >{{ book.borrowBook?.card?.fullName }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/book', book.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/book', book.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(book)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="totalItems < itemsPerPage || books && books.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage">
+            </jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+                [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

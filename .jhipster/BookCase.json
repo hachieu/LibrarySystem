@@ -1,0 +1,43 @@
+{
+  "name": "BookCase",
+  "fields": [
+    {
+      "fieldName": "bookCaseName",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "dateCreate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateUpdate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "userCreate",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "book",
+      "otherEntityRelationshipName": "bookCase",
+      "relationshipName": "bookCase"
+    }
+  ],
+  "changelogDate": "20210601154051",
+  "entityTableName": "book_case",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,88 @@
+<div class="row justify-content-center mt-2">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-book-heading" jhiTranslate="libaraySystemApp.book.home.createOrEditLabel">Create or edit a Book</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="libaraySystemApp.book.bookBarCode" for="field_bookBarCode">Book Bar Code</label>
+                    <input type="text" class="form-control" name="bookBarCode" id="field_bookBarCode"
+                           formControlName="bookBarCode"/>
+                    <div *ngIf="editForm.get('bookBarCode')!.invalid && (editForm.get('bookBarCode')!.dirty || editForm.get('bookBarCode')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('bookBarCode')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <!-- <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="libaraySystemApp.book.status" for="field_status">Status</label>
+                    <input type="number" class="form-control" name="status" id="field_status" [value]="1"
+                           formControlName="status"/>
+                    <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('status')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('status')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div> -->
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="libaraySystemApp.book.bookTitle" for="field_bookTitle">Book Title</label>
+                    <select class="form-control" id="field_bookTitle" name="bookTitle" formControlName="bookTitle">
+                        <option [ngValue]="bookTitleOption.id === editForm.get('bookTitle')!.value?.id ? editForm.get('bookTitle')!.value : bookTitleOption" *ngFor="let bookTitleOption of booktitles; trackBy: trackById">{{ bookTitleOption.bookTitleName }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('bookTitle')!.invalid && (editForm.get('bookTitle')!.dirty || editForm.get('bookTitle')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('bookTitle')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="libaraySystemApp.book.bookCase" for="field_bookCase">Book Case</label>
+                    <select class="form-control" id="field_bookCase" name="bookCase" formControlName="bookCase">
+                        <option [ngValue]="bookCaseOption.id === editForm.get('bookCase')!.value?.id ? editForm.get('bookCase')!.value : bookCaseOption" *ngFor="let bookCaseOption of bookcases; trackBy: trackById">{{ bookCaseOption.bookCaseName }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('bookCase')!.invalid && (editForm.get('bookCase')!.dirty || editForm.get('bookCase')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('bookCase')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <!-- <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="libaraySystemApp.book.borrowBook" for="field_borrowBook">Borrow Book</label>
+                    <select class="form-control" id="field_borrowBook" name="borrowBook" formControlName="borrowBook">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="borrowBookOption.id === editForm.get('borrowBook')!.value?.id ? editForm.get('borrowBook')!.value : borrowBookOption" *ngFor="let borrowBookOption of borrowbooks; trackBy: trackById">{{ borrowBookOption.id }}</option>
+                    </select>
+                </div> -->
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div *jhiHasAnyAuthority="['ROLE_ADMIN']">
+    <div class="float-left">
+        <img src="../../content/images/jhipster_family_member_1_head-512.png">
+    </div>
+    <div class="text-success mt-5">
+        <h1 class="display-4" jhiTranslate="home.admin">Welcome, Admin !</h1>
+    </div>
+</div>
+<div *jhiHasAnyAuthority="['ROLE_USER']" class="home-wl">
+    <h1 class="display-4" jhiTranslate="home.title">Welcome, Library!</h1>
+    <button type="submit" [routerLink]="['/book-title/top']" class="btn btn-outline-danger mx-auto d-block">
+        <span jhiTranslate="entity.action.seeMore">See more</span>
+    </button>
+</div>

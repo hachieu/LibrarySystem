@@ -1,0 +1,103 @@
+<div class="mt-2">
+    <h2 id="page-heading">
+        <span jhiTranslate="libaraySystemApp.card.home.title">Cards</span>
+    </h2>
+
+    <div class="form-inline justify-content-end form-group w-100">
+        <form (ngSubmit)="loadData(1)">
+            <input class="form-control mr-2 w-12" type="text"
+                placeholder="{{'libaraySystemApp.card.fullName' | translate}}" [(ngModel)]="fullName"
+                name="fullName">
+
+            <button class="btn btn-primary mr-2" type="submit">
+                <fa-icon icon="search"></fa-icon>
+                <span jhiTranslate="entity.action.search">Search</span>
+            </button>
+        </form>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-card" [routerLink]="['/card/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="libaraySystemApp.card.home.createLabel">
+            Create a new Card
+            </span>
+        </button>
+    </div>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="cards?.length === 0">
+        <span jhiTranslate="libaraySystemApp.card.home.notFound">No cards found</span>
+    </div>
+
+    <div class="table-responsive lb-table lb-scroll" id="entities" *ngIf="cards && cards.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="codeCard"><span jhiTranslate="libaraySystemApp.card.codeCard">Code Card</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fullName"><span jhiTranslate="libaraySystemApp.card.fullName">Full Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dateOfBirth"><span jhiTranslate="libaraySystemApp.card.dateOfBirth">Date Of Birth</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="gender"><span jhiTranslate="libaraySystemApp.card.gender">Gender</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="identity"><span jhiTranslate="libaraySystemApp.card.identity">Identity</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="phoneNumber"><span jhiTranslate="libaraySystemApp.card.phoneNumber">Phone Number</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="address"><span jhiTranslate="libaraySystemApp.card.address">Address</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dateCreate"><span jhiTranslate="libaraySystemApp.card.dateCreate">Date Create</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dateUpdate"><span jhiTranslate="libaraySystemApp.card.dateUpdate">Date Update</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="userCreate"><span jhiTranslate="libaraySystemApp.card.userCreate">User Create</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let card of cards ;trackBy: trackId">
+                    <td><a [routerLink]="['/card', card.id, 'view']">{{ card.id }}</a></td>
+                    <td>{{ card.codeCard }}</td>
+                    <td>{{ card.fullName }}</td>
+                    <td>{{ card.dateOfBirth | date:'dd/MM/yyyy' }}</td>
+                    <td *ngIf = "card.gender === '0'"><span jhiTranslate="libaraySystemApp.card.female">FeMale</span></td>
+                    <td *ngIf = "card.gender === '1'"><span jhiTranslate="libaraySystemApp.card.male">Male</span></td>
+                    <td>{{ card.identity }}</td>
+                    <td>{{ card.phoneNumber }}</td>
+                    <td>{{ card.address }}</td>
+                    <td>{{ card.dateCreate | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ card.dateUpdate | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ card.userCreate }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/card', card.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/card', card.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(card)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="totalItems < itemsPerPage || cards && cards.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage">
+            </jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+                [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

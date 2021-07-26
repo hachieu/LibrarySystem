@@ -1,0 +1,128 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-card-heading" jhiTranslate="libaraySystemApp.card.home.createOrEditLabel">Create or edit a Card
+            </h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <!-- <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="libaraySystemApp.card.codeCard" for="field_codeCard">Code Card</label>
+                    <input type="text" class="form-control" name="codeCard" id="field_codeCard"
+                           formControlName="codeCard"/>
+                    <div *ngIf="editForm.get('codeCard')!.invalid && (editForm.get('codeCard')!.dirty || editForm.get('codeCard')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('codeCard')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div> -->
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="libaraySystemApp.card.fullName"
+                        for="field_fullName">Full Name</label>
+                    <input type="text" class="form-control" name="fullName" id="field_fullName"
+                        formControlName="fullName" />
+                    <div
+                        *ngIf="editForm.get('fullName')!.invalid && (editForm.get('fullName')!.dirty || editForm.get('fullName')!.touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('fullName')?.errors?.required"
+                            jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="libaraySystemApp.card.dateOfBirth"
+                        for="field_dateOfBirth">Date Of Birth</label>
+                    <div class="input-group">
+                        <input id="field_dateOfBirth" type="date" class="form-control" name="dateOfBirth"
+                            formControlName="dateOfBirth" />
+                    </div>
+                    <div
+                        *ngIf="editForm.get('dateOfBirth')!.invalid && (editForm.get('dateOfBirth')!.dirty || editForm.get('dateOfBirth')!.touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('dateOfBirth')?.errors?.required"
+                            jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label mr-3" jhiTranslate="libaraySystemApp.card.gender"
+                        for="field_gender">Gender</label>
+                    <input type="radio" name="gender" value="1" id="field_gender" formControlName="gender" />
+                    <span jhiTranslate="libaraySystemApp.card.male">Male</span>
+                    <input type="radio" name="gender" value="0" id="field_gender" formControlName="gender" />
+                    <span jhiTranslate="libaraySystemApp.card.female">FeMale</span>
+                    <div
+                        *ngIf="editForm.get('gender')!.invalid && (editForm.get('gender')!.dirty || editForm.get('gender')!.touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('gender')?.errors?.required"
+                            jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="libaraySystemApp.card.identity"
+                        for="field_identity">Identity</label>
+                    <input type="text" class="form-control" name="identity" id="field_identity"
+                        formControlName="identity" />
+                    <div
+                        *ngIf="editForm.get('identity')!.invalid && (editForm.get('identity')!.dirty || editForm.get('identity')!.touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('identity')?.errors?.required"
+                            jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="libaraySystemApp.card.phoneNumber"
+                        for="field_phoneNumber">Phone Number</label>
+                    <input type="text" class="form-control" name="phoneNumber" id="field_phoneNumber"
+                        formControlName="phoneNumber" />
+                    <div
+                        *ngIf="editForm.get('phoneNumber')!.invalid && (editForm.get('phoneNumber')!.dirty || editForm.get('phoneNumber')!.touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('phoneNumber')?.errors?.required"
+                            jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="libaraySystemApp.card.address"
+                        for="field_address">Address</label>
+                    <input type="text" class="form-control" name="address" id="field_address"
+                        formControlName="address" />
+                    <div
+                        *ngIf="editForm.get('address')!.invalid && (editForm.get('address')!.dirty || editForm.get('address')!.touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('address')?.errors?.required"
+                            jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                    class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="borrowBook">
+            <h2><span jhiTranslate="libaraySystemApp.borrowBook.detail.title">Borrow Book</span> {{ borrowBook.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="libaraySystemApp.borrowBook.dateCreate">Date Create</span></dt>
+                <dd>
+                    <span>{{ borrowBook.dateCreate | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.borrowBook.dateUpdate">Date Update</span></dt>
+                <dd>
+                    <span>{{ borrowBook.dateUpdate | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.borrowBook.userCreate">User Create</span></dt>
+                <dd>
+                    <span>{{ borrowBook.userCreate }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.borrowBook.status">Status</span></dt>
+                <dd>
+                    <span class="text-success" *ngIf = "borrowBook.status === 0" jhiTranslate="libaraySystemApp.borrowBook.returned"></span>
+                    <span class="text-danger" *ngIf = "borrowBook.status === 1" jhiTranslate="libaraySystemApp.borrowBook.borrowing"></span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.borrowBook.card">Card</span></dt>
+                <dd>
+                    <div *ngIf="borrowBook.card">
+                        <a [routerLink]="['/card', borrowBook.card?.id, 'view']">{{ borrowBook.card?.fullName }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.book.home.title">Books</span></dt>
+                <dd>
+                    <div class="alert alert-warning" id="no-result" *ngIf="books?.length === 0">
+                        <span jhiTranslate="libaraySystemApp.book.home.notFound">No books found</span>
+                    </div>
+                
+                    <div class="table-responsive lb-table lb-scroll" id="entities" *ngIf="books && books.length > 0">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><span jhiTranslate="global.field.id">ID</span></th>
+                                    <th><span jhiTranslate="libaraySystemApp.book.bookBarCode">Book Bar Code</span></th>
+                                    <th><span jhiTranslate="libaraySystemApp.book.bookTitle">Book Title</span></th>
+                                    <th><span jhiTranslate="libaraySystemApp.book.bookCase">Book Case</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let book of books">
+                                    <td><a [routerLink]="['/book', book.id, 'view']">{{ book.id }}</a></td>
+                                    <td>{{ book.bookBarCode }}</td>
+                                    <td>
+                                        <div *ngIf="book.bookTitle">
+                                            <a [routerLink]="['/book-title', book.bookTitle?.id, 'view']" >{{ book.bookTitle?.bookTitleName }}</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="book.bookCase">
+                                            <a [routerLink]="['/book-case', book.bookCase?.id, 'view']" >{{ book.bookCase?.bookCaseName }}</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/borrow-book', borrowBook.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

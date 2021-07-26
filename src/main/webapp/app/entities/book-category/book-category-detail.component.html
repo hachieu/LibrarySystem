@@ -1,0 +1,42 @@
+<div class="row justify-content-center mt-2">
+    <div class="col-8">
+        <div *ngIf="bookCategory">
+            <h2><span jhiTranslate="libaraySystemApp.bookCategory.detail.title">Book Category</span> {{ bookCategory.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="libaraySystemApp.bookCategory.bookCategoryName">Book Category Name</span></dt>
+                <dd>
+                    <span>{{ bookCategory.bookCategoryName }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookCategory.dateCreate">Date Create</span></dt>
+                <dd>
+                    <span>{{ bookCategory.dateCreate | date:'dd/MM/yyyy' }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookCategory.dateUpdate">Date Update</span></dt>
+                <dd>
+                    <span>{{ bookCategory.dateUpdate | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookCategory.userCreate">User Create</span></dt>
+                <dd>
+                    <span>{{ bookCategory.userCreate }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/book-category', bookCategory.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

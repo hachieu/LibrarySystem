@@ -1,0 +1,34 @@
+{
+  "libaraySystemApp": {
+    "card": {
+      "home": {
+        "title": "Cards",
+        "createLabel": "Create a new Card",
+        "createOrEditLabel": "Create or edit a Card",
+        "notFound": "No Cards found"
+      },
+      "created": "A new Card is created with identifier {{ param }}",
+      "updated": "A Card is updated with identifier {{ param }}",
+      "deleted": "A Card is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Card {{ id }}?"
+      },
+      "detail": {
+        "title": "Card"
+      },
+      "codeCard": "Code Card",
+      "fullName": "Full Name",
+      "gender": "Gender",
+      "identity": "Identity",
+      "phoneNumber": "Phone Number",
+      "address": "Address",
+      "dateCreate": "Date Create",
+      "dateUpdate": "Date Update",
+      "userCreate": "User Create",
+      "dateOfBirth": "Date Of Birth",
+      "card": "Card",
+      "male": "Male",
+      "female": "FeMale"
+    }
+  }
+}

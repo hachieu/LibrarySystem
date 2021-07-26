@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="bookTitle">
+            <h2><span jhiTranslate="libaraySystemApp.bookTitle.detail.title">Book Title</span> {{ bookTitle.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="libaraySystemApp.bookTitle.bookTitleName">Book Title Name</span></dt>
+                <dd>
+                    <span>{{ bookTitle.bookTitleName }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookTitle.author">Author</span></dt>
+                <dd>
+                    <span>{{ bookTitle.author }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookTitle.publicationDate">Publication Date</span></dt>
+                <dd>
+                    <span>{{ bookTitle.publicationDate | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookTitle.page">Page</span></dt>
+                <dd>
+                    <span>{{ bookTitle.page }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookTitle.priceOfBook">Price Of Book</span></dt>
+                <dd>
+                    <span>{{ bookTitle.priceOfBook }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookTitle.prireOfBorrow">Prire Of Borrow</span></dt>
+                <dd>
+                    <span>{{ bookTitle.prireOfBorrow }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookTitle.image">Image</span></dt>
+                <dd>
+                    <img [src]="urlImage + bookTitle.image" class="d-img" >
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookTitle.dateCreate">Date Create</span></dt>
+                <dd>
+                    <span>{{ bookTitle.dateCreate | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookTitle.dateUpdate">Date Update</span></dt>
+                <dd>
+                    <span>{{ bookTitle.dateUpdate | date:'dd/MM/yyyy'}}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookTitle.userCreate">User Create</span></dt>
+                <dd>
+                    <span>{{ bookTitle.userCreate }}</span>
+                </dd>
+                <dt><span jhiTranslate="libaraySystemApp.bookTitle.bookCategory">Book Category</span></dt>
+                <dd>
+                    <div *ngIf="bookTitle.bookCategory">
+                        <a [routerLink]="['/book-category', bookTitle.bookCategory?.id, 'view']">{{ bookTitle.bookCategory?.bookCategoryName }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/book-title', bookTitle.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+{
+  "libaraySystemApp": {
+    "book": {
+      "home": {
+        "title": "Sách",
+        "createLabel": "Thêm mới sách",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật sách",
+        "notFound": "Không tìm thấy sách"
+      },
+      "created": "Một sách mới được tạo với định danh {{ param }}",
+      "updated": "Một sách cập nhật với định danh {{ param }}",
+      "deleted": "Một sách đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa sách {{ id }}?"
+      },
+      "detail": {
+        "title": "Sách"
+      },
+      "bookBarCode": "Mã vạch",
+      "status": "Trạng thái",
+      "dateCreate": "Ngày tạo",
+      "dateUpdate": "Ngày cập nhật",
+      "userCreate": "Tài khoản tạo",
+      "bookTitle": "Đầu sách",
+      "bookCase": "Tủ sách",
+      "borrowBook": "Mượn sách",
+      "borrowed": "Đã mượn",
+      "notborrowedyet": "Chưa mượn",
+      "file" : "Tệp",
+      "createFile" : "Tạo sách bằng tệp"
+    }
+  }
+}

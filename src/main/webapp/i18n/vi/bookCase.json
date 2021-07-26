@@ -1,0 +1,26 @@
+{
+  "libaraySystemApp": {
+    "bookCase": {
+      "home": {
+        "title": "Tủ sách",
+        "createLabel": "Thêm mới tủ sách",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật tủ sách",
+        "notFound": "Không tìm thấy tủ sách"
+      },
+      "created": "Một tủ sách mới được tạo với định danh {{ param }}",
+      "updated": "Một tủ sách cập nhật với định danh {{ param }}",
+      "deleted": "Một tủ sách đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa tủ sách {{ id }}?"
+      },
+      "detail": {
+        "title": "Tủ sách"
+      },
+      "bookCaseName": "Tên tủ sách",
+      "dateCreate": "Ngày tạo",
+      "dateUpdate": "Ngày cập nhật",
+      "userCreate": "Tài khoản tạo",
+      "bookCase": "Tủ sách"
+    }
+  }
+}
